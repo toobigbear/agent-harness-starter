@@ -1,0 +1,41 @@
+
+# Agent Harness 配置文件
+
+agent:
+  agent_id: "file_analyst_v1"
+  max_steps: 8
+
+permissions:
+  allowed_tools:
+    - read_file
+    - write_file
+    - list_files
+    - calculate
+    - search_files
+    - execute_python
+    - execute_shell
+  denied_tools:
+    - delete_file
+    - remove
+  allow_network: false
+  allow_file_write: true
+  allow_file_delete: false
+  allowed_paths:
+    - "workspace/"
+    - "memory/"
+    - "logs/"
+
+sandbox:
+  image: "python:3.11-slim"
+  memory_limit: "128m"
+  cpu_limit: 0.5
+  timeout_seconds: 30
+  network_disabled: true
+
+memory:
+  max_history_items: 15
+  checkpoint_interval: 1
+
+observability:
+  log_dir: "logs"
+  log_level: "INFO"

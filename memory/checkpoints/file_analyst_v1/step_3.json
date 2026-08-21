@@ -1,0 +1,28 @@
+{
+  "history": [
+    {
+      "role": "system",
+      "content": "你是一个受控 AI Agent，运行在 Harness 控制层下。\n\n可用工具列表:\n[\n  {\n    \"name\": \"read_file\",\n    \"description\": \"读取指定路径的文件内容\",\n    \"parameters\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"path\": {\n          \"type\": \"string\",\n          \"description\": \"文件路径\"\n        }\n      },\n      \"required\": [\n        \"path\"\n      ]\n    },\n    \"sandbox\": false\n  },\n  {\n    \"name\": \"write_file\",\n    \"description\": \"将内容写入指定路径的文件\",\n    \"parameters\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"path\": {\n          \"type\": \"string\",\n          \"description\": \"目标文件路径\"\n        },\n        \"content\": {\n          \"type\": \"string\",\n          \"description\": \"文件内容\"\n        }\n      },\n      \"required\": [\n        \"path\",\n        \"content\"\n      ]\n    },\n    \"sandbox\": false\n  },\n  {\n    \"name\": \"list_files\",\n    \"description\": \"列出指定目录中的文件\",\n    \"parameters\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"directory\": {\n          \"type\": \"string\",\n          \"description\": \"目录路径，默认 workspace\"\n        }\n      }\n    },\n    \"sandbox\": false\n  },\n  {\n    \"name\": \"calculate\",\n    \"description\": \"计算数学表达式（仅支持 + - * / 和括号）\",\n    \"parameters\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"expression\": {\n          \"type\": \"string\",\n          \"description\": \"数学表达式\"\n        }\n      },\n      \"required\": [\n        \"expression\"\n      ]\n    },\n    \"sandbox\": false\n  },\n  {\n    \"name\": \"search_files\",\n    \"description\": \"在目录中搜索包含指定文本的文件\",\n    \"parameters\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"directory\": {\n          \"type\": \"string\"\n        },\n        \"pattern\": {\n          \"type\": \"string\",\n          \"description\": \"要搜索的文本\"\n        }\n      },\n      \"required\": [\n        \"pattern\"\n      ]\n    },\n    \"sandbox\": false\n  },\n  {\n    \"name\": \"execute_python\",\n    \"description\": \"在 Docker 沙箱中执行 Python 代码\",\n    \"parameters\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"code\": {\n          \"type\": \"string\",\n          \"description\": \"Python 代码\"\n        }\n      },\n      \"required\": [\n        \"code\"\n      ]\n    },\n    \"sandbox\": true\n  },\n  {\n    \"name\": \"execute_shell\",\n    \"description\": \"在 Docker 沙箱中执行 Shell 命令\",\n    \"parameters\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"command\": {\n          \"type\": \"string\",\n          \"description\": \"Shell 命令\"\n        }\n      },\n      \"required\": [\n        \"command\"\n      ]\n    },\n    \"sandbox\": true\n  }\n]\n\n约束:\n1. 每次只能调用一个工具\n2. 所有文件操作必须在 workspace/ 目录下\n3. 危险操作（删除、网络访问）被禁止\n4. 最大步数限制: 8\n5. 代码执行在 Docker 沙箱中完成\n\n请按以下格式响应（JSON）:\n{\n  \"thought\": \"你的推理过程\",\n  \"action\": {\"tool\": \"工具名\", \"params\": {...}},\n  \"is_final\": false\n}\n或任务完成时:\n{\n  \"thought\": \"任务完成\",\n  \"action\": null,\n  \"is_final\": true,\n  \"answer\": \"最终答案\"\n}\n"
+    },
+    {
+      "role": "user",
+      "content": "读取 workspace/sample_data.txt"
+    },
+    {
+      "role": "tool",
+      "content": "name,age,score\nAlice,28,85\nBob,34,92\nCarol,22,78\nDavid,45,88\nEve,31,95",
+      "tool": "read_file"
+    },
+    {
+      "role": "tool",
+      "content": "name,age,score\nAlice,28,85\nBob,34,92\nCarol,22,78\nDavid,45,88\nEve,31,95",
+      "tool": "read_file"
+    },
+    {
+      "role": "tool",
+      "content": "name,age,score\nAlice,28,85\nBob,34,92\nCarol,22,78\nDavid,45,88\nEve,31,95",
+      "tool": "read_file"
+    }
+  ],
+  "step": 3
+}

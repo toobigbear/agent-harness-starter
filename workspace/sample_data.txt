@@ -1,0 +1,6 @@
+name,age,score
+Alice,28,85
+Bob,34,92
+Carol,22,78
+David,45,88
+Eve,31,95
